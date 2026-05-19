@@ -7,5 +7,6 @@ const validateAuth= require('../../middleware/validateAuth');
 
 router.post('/signup', validateAuth, UserController.createUser);
 router.post('/signin', validateAuth, UserController.signIn);
+router.get('/isAuthenticated', UserController.isAuthenticated);
 
 module.exports = router;

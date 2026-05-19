@@ -35,6 +35,23 @@ class UserService {
         return newJWT;
     }
 
+    async isAuthenticated(token) {
+        try {
+            const response = this.verifyToken(token);
+            if(!response){
+                throw new Error('Invalid token');
+            }
+            const user = await this.userRepository.getUserByEmail(response.mail);
+            if(!user){
+                throw new Error('User not found');
+            }
+            return user.id;
+        } catch (error) {
+            console.error('Error in Service Layer:', error);
+            throw error;
+        }
+    }
+
     async deleteUser(userId) {
         try {
             const isDeleted = await this.userRepository.deleteUser(userId);
