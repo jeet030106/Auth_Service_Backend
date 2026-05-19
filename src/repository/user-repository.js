@@ -22,6 +22,20 @@ class UserRepository {
         }
     }
 
+    async getUserByEmail(email) {
+        try {
+            const userData = await User.findOne({
+                where: {
+                         mail: email 
+                        }
+                });
+            return userData;
+        } catch (error) {
+            console.error('Error in Repository Layer:', error);
+            throw error;
+        }
+    }
+
 }
 
 module.exports = UserRepository;
