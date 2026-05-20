@@ -42,7 +42,7 @@ class UserRepository {
             const user = await User.findByPk(userId);
             if (!user) {
                 throw new Error('User not found');
-            }
+}
             const roles = await Role.findOne({
                 where:{
                     name: 'admin'
@@ -50,6 +50,9 @@ class UserRepository {
             });
             return user.hasRole(roles);
         } catch (error) {
+            if(error.name=='SequelizeValidationError'){
+                throw new Error(error.errors[0].message);
+            }
             console.error('Error in Repository Layer:', error);
             throw error;
         }
