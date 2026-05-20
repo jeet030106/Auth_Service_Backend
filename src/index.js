@@ -5,6 +5,7 @@ const app= express();
 const {PORT}= require('./config/serverConfig');
 const UserService = require('./service/user-service');
 const user = require('./models/user');
+const db = require('./models/index');
 const prepareAndStartServer= async()=>{
     
     app.use(bodyParser.json());
